@@ -1,0 +1,13 @@
+# Personal local permission override
+.claude/settings.local.json
+
+# Worktree temporary folder
+.claude/worktrees/
+
+# Serena session information
+.serena/
+
+# Local secrets and per-machine config
+.env
+
+.DS_Store

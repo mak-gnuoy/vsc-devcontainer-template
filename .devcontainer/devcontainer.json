@@ -1,0 +1,44 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "Project Template Dev Container",
+	"build": {
+		// Sets the run context to one level up instead of the .devcontainer folder.
+		"context": "..",
+		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+		"dockerfile": "../docker/Dockerfile",
+		"args": {
+			// Update this if your Dockerfile uses a different ARG for the base image.
+			"BASE_IMAGE": "debian:stable-slim"	
+		},
+		// Update this if your Dockerfile has a different target for development.
+		"target": "dev-with-claude" 			
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Run after the workspace is mounted, so directories land in the host project.
+	"postCreateCommand": "./docker/create.project.structure.sh ${containerWorkspaceFolder}",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"ms-vscode-remote.remote-containers",
+				"anthropic.claude-code"	
+			]
+		}
+	},
+
+	// Load environment variables from .env at container start.
+	// Requires .env to exist — copy .env.example to .env on first clone.
+	"runArgs": ["--env-file", "${localWorkspaceFolder}/.env"]
+
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "devcontainer"
+}
