@@ -11,9 +11,9 @@ COPY . /app
 WORKDIR /app
 
 # Install dependencies
-RUN ./docker/install.deps.for.dev-with-claude.sh
+RUN ./docker/install.deps.sh
 
-RUN ./docker/create.appuser.sh appuser
+RUN ./docker/create.appuser.sh appuser /app
 USER appuser
 
 RUN ./docker/install.claude.sh \
