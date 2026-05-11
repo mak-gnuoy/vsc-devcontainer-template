@@ -4,17 +4,34 @@ ARG BASE_IMAGE=debian:stable-slim
 FROM ${BASE_IMAGE} AS base
 
 # -------------------------------
-# Development Image with Claude
-FROM base AS dev-with-claude
+# Development Image
+FROM base AS dev
 
 COPY . /app
 WORKDIR /app
 
 # Install dependencies
-RUN ./docker/install.deps.sh
+RUN ./docker/install.deps.dev.sh 
 
-RUN ./docker/create.appuser.sh appuser /app
-USER appuser
+ARG USERNAME=appuser
+ENV HOME=/home/${USERNAME}
 
-RUN ./docker/install.claude.sh \
-    && ./docker/install.mcps.sh
+RUN ./docker/create.user.sh ${USERNAME} /app
+USER ${USERNAME}
+ENV PATH="${HOME}/.local/bin:${PATH}"
+
+RUN ./docker/install.mcps.sh
+
+# -------------------------------
+# Production Image
+FROM base AS prod
+
+# COPY . /app
+# WORKDIR /app
+
+# ARG USERNAME=appuser
+# ENV HOME=/home/${USERNAME}
+
+# RUN ./docker/create.user.sh ${USERNAME} /app
+# USER ${USERNAME}
+# ENV PATH="${HOME}/.local/bin:${PATH}"

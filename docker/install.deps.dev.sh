@@ -10,8 +10,6 @@ if [ -f /etc/os-release ]; then
                 curl \
                 bash \
                 git \
-                nodejs npm \
-                zstd \
                 && rm -rf /var/lib/apt/lists/*
             ;;
         rhel|centos|fedora|rocky|almalinux|ol)
@@ -24,9 +22,7 @@ if [ -f /etc/os-release ]; then
                 ca-certificates \
                 curl \
                 bash \
-                git \
-                nodejs npm \
-                zstd 
+                git 
             ;;
         *)
             echo "Unsupported OS: $ID"

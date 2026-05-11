@@ -1,12 +1,12 @@
-# Project Template
+# VS Code Dev Container Template 2
 
-A starter template for developing inside a VS Code Dev Container with Claude Code pre-installed.
+A starter template for developing inside a VS Code Dev Container with multiple AI tools pre-installed, including Claude Code, OpenAI Codex, Google Gemini CLI, and MCP servers.
 
 ## Quick Start
 
 1. Open this folder in VS Code.
 2. Run **"Dev Containers: Reopen in Container"** from the Command Palette.
-3. Wait for the container to build. Claude Code is ready to use once the container starts.
+3. Wait for the container to build. AI tools and MCP servers are ready to use once the container starts.
 
 ## Devcontainer Configuration
 
@@ -22,7 +22,7 @@ The Dockerfile accepts a `BASE_IMAGE` build argument so you can pick the Linux d
     "args": {
         "BASE_IMAGE": "debian:stable-slim"   // ← change this
     },
-    "target": "dev-with-claude"
+    "target": "dev"
     ...
 }
 ```
@@ -41,8 +41,17 @@ After changing the base image, rebuild the container with **"Dev Containers: Reb
 
 `target` selects a stage in the multi-stage Dockerfile:
 
-- `dev-with-claude` — development environment with Claude Code installed (default).
+- `dev` — development environment with AI tools and MCP servers installed (default).
 - `base` — use the `BASE_IMAGE` as-is, without any additional setup.
+
+## Pre-installed Tools
+
+This template includes the following AI tools and MCP servers:
+
+- **Claude Code**: Anthropic's AI coding assistant
+- **OpenAI Codex**: OpenAI's code generation tool
+- **Google Gemini CLI**: Google's AI assistant
+- **MCP Servers**: Including Serena CLI for enhanced AI capabilities
 
 ## Environment Variables
 

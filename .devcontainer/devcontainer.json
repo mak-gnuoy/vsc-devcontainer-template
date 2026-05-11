@@ -9,20 +9,24 @@
 		"dockerfile": "../docker/Dockerfile",
 		"args": {
 			// Update this if your Dockerfile uses a different ARG for the base image.
-			"BASE_IMAGE": "debian:stable-slim"	
+			"BASE_IMAGE": "debian:stable-slim",
+			"USERNAME": "appuser"
 		},
 		// Update this if your Dockerfile has a different target for development.
-		"target": "dev-with-claude" 			
+		"target": "dev" 			
 	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
+	"features": {
+		"ghcr.io/devcontainers/features/node:2.0.0": {},
+		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Run after the workspace is mounted, so directories land in the host project.
-	"postCreateCommand": "./docker/create.project.structure.sh ${containerWorkspaceFolder}",
+	"postCreateCommand": "npm install -g @openai/codex @google/gemini-cli && codex --version && gemini --version && ./docker/create.project.structure.sh ${containerWorkspaceFolder}",
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -30,7 +34,9 @@
 			"extensions": [
 				"ms-azuretools.vscode-docker",
 				"ms-vscode-remote.remote-containers",
-				"anthropic.claude-code"	
+				"anthropic.claude-code",
+				"openai.chatgpt",
+        		"Google.geminicodeassist"	
 			]
 		}
 	},
