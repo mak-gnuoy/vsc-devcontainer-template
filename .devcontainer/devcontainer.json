@@ -26,7 +26,7 @@
 	// "forwardPorts": [],
 
 	// Run after the workspace is mounted, so directories land in the host project.
-	"postCreateCommand": "npm install -g @openai/codex @google/gemini-cli && codex --version && gemini --version && ./docker/create.project.structure.sh ${containerWorkspaceFolder}",
+	"postCreateCommand": "./docker/install.coding.agents.sh && ./docker/create.project.structure.sh ${containerWorkspaceFolder}",
 
 	// Configure tool-specific properties.
 	"customizations": {
