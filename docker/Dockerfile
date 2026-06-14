@@ -11,16 +11,26 @@ COPY . /app
 WORKDIR /app
 
 # Install dependencies
-RUN ./docker/install.deps.dev.sh 
+RUN ./docker/scripts/install.deps.dev.sh 
 
 ARG USERNAME=appuser
 ENV HOME=/home/${USERNAME}
 
-RUN ./docker/create.user.sh ${USERNAME} /app
+RUN ./docker/scripts/create.user.sh ${USERNAME} /app
+
+# Grant passwordless sudo (user is created with --disabled-password)
+RUN usermod -aG sudo ${USERNAME} \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} \
+    && chmod 0440 /etc/sudoers.d/${USERNAME}
+
 USER ${USERNAME}
 ENV PATH="${HOME}/.local/bin:${PATH}"
 
-RUN ./docker/install.mcps.sh
+RUN sudo ./docker/scripts/install.coding.agents.sh && \
+    ./docker/scripts/install.mcps.sh && \
+    ./docker/scripts/install.plugins.sh gstack && \
+    ./docker/scripts/install.plugins.superpowers.sh && \
+    ./docker/scripts/create.project.structure.sh
 
 # -------------------------------
 # Production Image
@@ -32,6 +42,6 @@ FROM base AS prod
 # ARG USERNAME=appuser
 # ENV HOME=/home/${USERNAME}
 
-# RUN ./docker/create.user.sh ${USERNAME} /app
+# RUN ./docker/scripts/create.user.sh ${USERNAME} /app
 # USER ${USERNAME}
 # ENV PATH="${HOME}/.local/bin:${PATH}"

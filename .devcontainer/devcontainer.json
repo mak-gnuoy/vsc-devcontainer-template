@@ -16,17 +16,18 @@
 		"target": "dev" 			
 	},
 
+	// "mounts": [
+	// 	"source=${localEnv:HOME}${localEnv:USERPROFILE}/data,target=/data,type=bind,consistency=cached"
+	// ],
+
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	"features": {
-		"ghcr.io/devcontainers/features/node:2.0.0": {},
-		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {}
-	},
+	// "features":  {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Run after the workspace is mounted, so directories land in the host project.
-	"postCreateCommand": "./docker/install.coding.agents.sh && ./docker/create.project.structure.sh ${containerWorkspaceFolder}",
+	// "postCreateCommand": "./docker/scripts/install.coding.agents.sh && ./docker/scripts/create.project.structure.sh ${containerWorkspaceFolder}",
 
 	// Configure tool-specific properties.
 	"customizations": {
@@ -36,7 +37,8 @@
 				"ms-vscode-remote.remote-containers",
 				"anthropic.claude-code",
 				"openai.chatgpt",
-        		"Google.geminicodeassist"	
+        		"Google.geminicodeassist",
+				"github.copilot-chat"
 			]
 		}
 	},
