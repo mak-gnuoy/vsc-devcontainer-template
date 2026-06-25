@@ -55,4 +55,4 @@ This template includes the following AI tools and MCP servers:
 
 ## Environment Variables
 
-The container loads variables from a `.env` file at the project root on startup (see `runArgs` in `devcontainer.json`). Copy `.env.example` to `.env` before opening the container for the first time.
+The container loads variables from a `docker/.env` file on startup (see `runArgs` in `devcontainer.json`). Copy `docker/.env.example` to `docker/.env` before opening the container for the first time.

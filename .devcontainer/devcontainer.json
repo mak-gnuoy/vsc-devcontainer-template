@@ -43,9 +43,9 @@
 		}
 	},
 
-	// Load environment variables from .env at container start.
-	// Requires .env to exist — copy .env.example to .env on first clone.
-	"runArgs": ["--env-file", "${localWorkspaceFolder}/.env"]
+	// Load environment variables from docker/.env at container start.
+	// Requires docker/.env to exist — copy docker/.env.example to docker/.env on first clone.
+	"runArgs": ["--env-file", "${localWorkspaceFolder}/docker/.env"]
 
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"

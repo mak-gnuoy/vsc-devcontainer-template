@@ -8,7 +8,7 @@
 .serena/
 
 # Local secrets and per-machine config
-.env
+docker/.env
 
 .DS_Store
 
