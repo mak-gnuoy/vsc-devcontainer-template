@@ -28,9 +28,9 @@ ENV PATH="${HOME}/.local/bin:${PATH}"
 
 RUN sudo ./docker/scripts/install.coding.agents.sh && \
     # ./docker/scripts/install.mcps.sh && \
+    # ./docker/scripts/create.project.structure.sh && \
     ./docker/scripts/install.plugins.sh gstack && \
-    ./docker/scripts/install.plugins.superpowers.sh && \
-    ./docker/scripts/create.project.structure.sh
+    ./docker/scripts/install.plugins.superpowers.sh 
 
 # -------------------------------
 # Production Image
