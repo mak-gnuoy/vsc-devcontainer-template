@@ -1,0 +1,60 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+	"name": "Debian + Claude Code, Codex, Gemini, Copilot",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	// The CLIs are installed from the Dockerfile. Node is here for the project
+	// and for npm, and because the Gemini CLI is a Node bundle that needs it at
+	// runtime.
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/python:1": {}
+	},
+
+	// Named volumes keyed by devcontainerId so credentials and history survive a
+	// rebuild without being shared with other repositories.
+	"mounts": [
+		"source=claude-code-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+		"source=codex-config-${devcontainerId},target=/home/vscode/.codex,type=volume",
+		"source=gemini-config-${devcontainerId},target=/home/vscode/.gemini,type=volume",
+		"source=copilot-config-${devcontainerId},target=/home/vscode/.copilot,type=volume",
+		"source=gstack-state-${devcontainerId},target=/home/vscode/.gstack,type=volume",
+		"source=claude-code-bashhistory-${devcontainerId},target=/commandhistory,type=volume"
+	],
+
+	// Claude Code keeps its OAuth account and per-project trust in ~/.claude.json,
+	// outside ~/.claude. CLAUDE_CONFIG_DIR moves that file into the volume too, so
+	// a rebuild does not force a fresh login.
+	//
+	// The image copy of Claude Code cannot update itself in place, and the
+	// updater would instead download a second copy into ~/.local, which is not on
+	// PATH and does not survive a rebuild. Upgrades happen by rebuilding.
+	"containerEnv": {
+		"CLAUDE_CONFIG_DIR": "/home/vscode/.claude",
+		"DISABLE_AUTOUPDATER": "1",
+		"HISTFILE": "/commandhistory/.bash_history"
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"anthropic.claude-code",
+				"openai.chatgpt",
+				"google.gemini-cli-vscode-ide-companion",
+				"github.copilot",
+				"github.copilot-chat"
+			]
+		}
+	},
+
+	// Superpowers and gstack both land in config directories that are volumes
+	// here, so they run once the mounts exist rather than in the image. Both
+	// scripts are idempotent and never fail container creation.
+	"postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-superpowers.sh && bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-gstack.sh",
+
+	"remoteUser": "vscode"
+}

@@ -1,0 +1,28 @@
+# 빌드 컨텍스트는 이 .devcontainer 디렉터리다. 이미지에 실제로 들어가는 것은
+# Dockerfile이 COPY하는 scripts/install-{claude,codex,gemini,copilot,bun}.sh
+# 다섯 개뿐이므로, 나머지는 컨텍스트에서 빼서 전송량과 캐시 무효화를 줄인다.
+
+# 컨테이너 생성 후(postCreate) 워크스페이스에서 실행되는 스크립트라 이미지에는 불필요
+scripts/install-gstack.sh
+scripts/install-superpowers.sh
+
+# devcontainer 도구가 읽는 파일이지 docker build가 쓰는 파일이 아니다
+devcontainer.json
+devcontainer-lock.json
+README.md
+
+# 컨텍스트가 넓어지더라도 절대 이미지로 새어 들어가면 안 되는 것들
+.git
+.gitignore
+.env
+.env.*
+*.pem
+*.key
+
+# 잡동사니
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+node_modules
+__pycache__

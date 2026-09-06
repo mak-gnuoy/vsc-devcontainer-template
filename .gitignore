@@ -1,0 +1,51 @@
+# 운영체제 / 편집기
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# 비밀값 / 로컬 환경설정
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# 로그와 임시 파일
+*.log
+logs/
+tmp/
+.cache/
+
+# Node / Bun
+node_modules/
+dist/
+build/
+.npm/
+.bun/
+bun.lockb.tmp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# 코딩 에이전트의 로컬 상태 (설정 자체는 커밋한다)
+.claude/settings.local.json
+.claude/todos/
+.claude/shell-snapshots/
+.claude/statsig/
+.codex/
+.gemini/
+.copilot/
+.gstack/
