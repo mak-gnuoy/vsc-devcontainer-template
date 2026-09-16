@@ -54,7 +54,8 @@
 	// Superpowers and gstack both land in config directories that are volumes
 	// here, so they run once the mounts exist rather than in the image. Both
 	// scripts are idempotent and never fail container creation.
-	"postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-superpowers.sh && bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-gstack.sh",
+	// ccusage needs npm from the Node.js feature, so install it after creation.
+	"postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-superpowers.sh && bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-gstack.sh && bash ${containerWorkspaceFolder}/.devcontainer/scripts/install-ccusage.sh",
 
 	"remoteUser": "vscode"
 }

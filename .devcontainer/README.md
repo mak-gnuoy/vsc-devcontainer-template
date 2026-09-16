@@ -19,6 +19,25 @@ Claude Code, Codex, Gemini, GitHub Copilot CLI와 Superpowers 플러그인이 �
 | git, curl, ripgrep, jq, ssh, sudo 등 | `Dockerfile`의 apt |
 | Superpowers 플러그인 (CLI 4개 모두) | `postCreateCommand`의 `scripts/install-superpowers.sh` |
 | gstack 스킬 (Claude Code, Codex) | `postCreateCommand`의 `scripts/install-gstack.sh` |
+| ccusage | `postCreateCommand`의 `scripts/install-ccusage.sh` (npm 전역 설치) |
+
+ccusage는 Node.js feature가 설치된 뒤 `postCreateCommand`에서 자동 설치합니다.
+현재 컨테이너에서 수동으로 설치하거나 갱신할 때도 같은 스크립트를 사용합니다.
+재실행하면 요청한 버전으로 설치되며, 인자를 생략하면 최신 버전을 설치합니다.
+
+```bash
+bash .devcontainer/scripts/install-ccusage.sh
+bash .devcontainer/scripts/install-ccusage.sh 20.0.20
+# 환경 변수로도 버전 지정 가능: CCUSAGE_VERSION=20.0.20
+ccusage daily
+ccusage codex daily
+```
+
+스크립트는 현재 npm 전역 경로에 설치하고 `ccusage --version`으로 실행을 확인합니다.
+설치 실패 시 오류를 반환하므로 컨테이너 생성 로그에서 원인을 확인할 수 있습니다.
+`No valid Claude data directories found in CLAUDE_CONFIG_DIR` 오류는 지정한 Claude
+설정 폴더에 `projects/` 사용량 데이터가 없을 때 발생합니다. 실제 Claude Code 기록이
+저장된 경로인지 확인하거나, Codex 기록을 조회하려면 `ccusage codex daily`를 사용하세요.
 
 네 CLI 모두 컨테이너를 만들 때가 아니라 이미지를 빌드할 때 설치합니다. 다운로드가 레이어에
 캐시되고, Gemini를 뺀 셋은 node 툴체인에도 의존하지 않습니다.
