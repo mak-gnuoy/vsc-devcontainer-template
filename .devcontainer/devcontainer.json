@@ -10,8 +10,8 @@
 	// and for npm, and because the Gemini CLI is a Node bundle that needs it at
 	// runtime.
 	"features": {
-		"ghcr.io/devcontainers/features/node:1": {},
-		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/node:2.1.1": {},
+		"ghcr.io/devcontainers/features/github-cli:1.1.3": {},
 		"ghcr.io/devcontainers/features/python:1": {}
 	},
 
